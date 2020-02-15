@@ -1,0 +1,15 @@
+public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> chat2Position = new HashMap<>(s.length()); //初始化大小，节省6ms,16->10
+        int longestSubstringLength = 0;
+        int startPoint = 0;
+        char present; //提前申明变量，而不是在for里面每次都创建一个变量，节约10MB内存，46.6->36.4
+        for (int i = 0; i < s.length(); i++) {
+            present = s.charAt(i);
+            if (chat2Position.containsKey(present)) {
+                startPoint = Math.max(chat2Position.get(present), startPoint);
+            }
+            longestSubstringLength = Math.max(longestSubstringLength, i - startPoint + 1);
+            chat2Position.put(present, i + 1);
+        }
+        return longestSubstringLength;
+    }
